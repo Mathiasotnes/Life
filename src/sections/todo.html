@@ -5,7 +5,7 @@
     <title>2 Do</title>
     <link rel="stylesheet" href="../assets/todo.css" />
     <link href='https://fonts.googleapis.com/css?family=Merienda' rel='stylesheet'>
-    <script defer src="../scripts/todo.js"></script>
+    <script defer src="../render.js"></script>
   </head>
   <body>
     <div class="navBar">
@@ -14,7 +14,7 @@
     </div>
     <div id="toDoList">
         <div class="toDoElement">
-            <input type="checkbox" class="toDoCheckbox">
+            <input type="checkbox" class="toDoCheckbox" onclick="updateTask()">
             <span class="toDoText">ToDo 1</span>
         </div>
         <div class="toDoElement">

@@ -1,8 +1,30 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const firebase = require('firebase/app');
+
+// Import the functions you need from the SDKs you need
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyC4PJMKD7cO4AjEtZiGJEa1YXA7EqhZjrY",
+  authDomain: "todo-34270.firebaseapp.com",
+  projectId: "todo-34270",
+  storageBucket: "todo-34270.appspot.com",
+  messagingSenderId: "963353731622",
+  appId: "1:963353731622:web:572e3dd56fc78abef57ce7",
+  measurementId: "G-L9CW2YK963"
+};
+
+// Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 // To make executable file for desktop, run this command in the terminal
 // npm run make
+
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -22,7 +44,7 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   // CHANGE THIS LINE BACK TO INDEX.HTML WHEN DONE TESTING:
-  mainWindow.loadFile(path.join(__dirname, 'sections/todo.html'));
+  mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
