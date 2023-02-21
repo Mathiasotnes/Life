@@ -21,7 +21,8 @@ const createWindow = () => {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  // CHANGE THIS LINE BACK TO INDEX.HTML WHEN DONE TESTING:
+  mainWindow.loadFile(path.join(__dirname, 'sections/todo.html'));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();

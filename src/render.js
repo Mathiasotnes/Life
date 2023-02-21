@@ -1,3 +1,3 @@
 function startToDo() {
-    console.log('hello world');
+    window.location.href = "sections/todo.html";
 }
