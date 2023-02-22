@@ -1,4 +1,7 @@
 const firebase = require('firebase/app');
+const getFirestore = require('firebase/firestore/lite');
+const collection = require('firebase/firestore/lite');
+const getDocs = require('firebase/firestore/lite');
 
 // Import the functions you need from the SDKs you need
 
@@ -19,14 +22,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+const db = getFirestore.getFirestore(firebaseApp);
 
 function backToDashboard() {
     window.location.href = "../index.html";
   }
 
   
-function updateTask() { 
-    //console.log(db.collection("todo").doc('ccPuudLxaq7OEt5icbb6').at('done'));
-    console.log("updateTask() called");
+async function getTasks() { 
+    const todos = getFirestore.collection(db, 'todo');
+    const todosSnapshot = await getDocs.getDocs(todos);
+    const todoList = todosSnapshot.docs.map(doc => doc.data());
+    console.log(todoList);
+    return todoList;
 }
 
