@@ -33,7 +33,28 @@ async function getTasks() {
     const todos = getFirestore.collection(db, 'todo');
     const todosSnapshot = await getDocs.getDocs(todos);
     const todoList = todosSnapshot.docs.map(doc => doc.data());
-    console.log(todoList);
     return todoList;
+}
+
+async function renderTasks() {
+    const todoList = await getTasks();
+    const todoContainer = document.getElementById('toDoList');
+    todoList.forEach((todo) => {
+        const todoElement = document.createElement('div');
+        const todoText = document.createElement('div');
+        const todoCheckbox = document.createElement('input');
+
+        todoElement.classList.add('toDoElement');
+
+        todoCheckbox.type = 'checkbox';
+        todoCheckbox.classList.add('toDoCheckbox');
+
+        todoText.classList.add('toDoText');
+        todoText.innerText = todo.task;
+
+        todoElement.appendChild(todoCheckbox);
+        todoElement.appendChild(todoText);
+        todoContainer.appendChild(todoElement);
+    });
 }
 
