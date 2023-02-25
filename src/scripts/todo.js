@@ -39,22 +39,81 @@ async function getTasks() {
 async function renderTasks() {
     const todoList = await getTasks();
     const todoContainer = document.getElementById('toDoList');
+    
+
+    const todoListHTML = document.getElementById('toDoList');
+    const todoElements = todoListHTML.getElementsByClassName('toDoElement');
+    const todoListArray = Array.from(todoElements);
+    const todoListArrayChecked = todoListArray.filter((todo) => {
+        return todo.getElementsByClassName('toDoCheckbox')[0].checked;
+    }
+    );
+    const todoListArrayCheckedText = todoListArrayChecked.map((todo) => {
+        return todo.getElementsByClassName('toDoText')[0].innerText;
+    }
+    );
+
+    todoContainer.innerHTML = "";
+
     todoList.forEach((todo) => {
-        const todoElement = document.createElement('div');
-        const todoText = document.createElement('div');
-        const todoCheckbox = document.createElement('input');
+        if (todoListArrayCheckedText.includes(todo.task)) {
+            // getFirestore.deleteDoc(todo);
+            console.log(todoList);
+        }
+        else {
+          const todoElement = document.createElement('div');
+          const todoText = document.createElement('div');
+          const todoCheckbox = document.createElement('input');
 
-        todoElement.classList.add('toDoElement');
+          todoElement.classList.add('toDoElement');
 
-        todoCheckbox.type = 'checkbox';
-        todoCheckbox.classList.add('toDoCheckbox');
+          todoCheckbox.type = 'checkbox';
+          todoCheckbox.classList.add('toDoCheckbox');
 
-        todoText.classList.add('toDoText');
-        todoText.innerText = todo.task;
+          todoText.classList.add('toDoText');
+          todoText.innerText = todo.task;
 
-        todoElement.appendChild(todoCheckbox);
-        todoElement.appendChild(todoText);
-        todoContainer.appendChild(todoElement);
+          todoElement.appendChild(todoCheckbox);
+          todoElement.appendChild(todoText);
+          todoContainer.appendChild(todoElement);
+      }
     });
+}
+
+async function updateTasks() {
+    const todoList = document.getElementById('toDoList');
+    const todoElements = todoList.getElementsByClassName('toDoElement');
+    const todoListArray = Array.from(todoElements);
+    const todoListArrayChecked = todoListArray.filter((todo) => {
+        return todo.getElementsByClassName('toDoCheckbox')[0].checked;
+    }
+    );
+    const todoListArrayCheckedText = todoListArrayChecked.map((todo) => {
+        return todo.getElementsByClassName('toDoText')[0].innerText;
+    }
+    );
+    console.log(todoListArrayCheckedText);
+
+
+    const todos = getFirestore.collection(db, 'todo');
+    todoListArrayCheckedText.forEach((todo) => {
+        console.log('-----------------');
+        console.log(todo);
+        console.log(getFirestore.getDoc(todos, {task: todo}));
+        getFirestore.deleteDoc(todos, {task: todo});
+    }
+    );
+
+
+    const todosSnapshot = await getDocs.getDocs(todos);
+    const todoListDB = todosSnapshot.docs.map(doc => doc.data());
+    console.log(todoListDB);
+    todoListDB.forEach((doc) => {
+        if (todoListArrayCheckedText.includes(doc.task)) {
+            getFirestore.deleteDoc(doc.ref);
+        }
+    }
+    );
+
 }
 
