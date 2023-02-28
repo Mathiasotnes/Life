@@ -10,23 +10,11 @@
   <body>
     <div class="navBar">
         <button class="backButton" onclick="backToDashboard()">Back</button>
-        <h1 class="header">To do</h1>
+        <!-- <h1 class="header">To do</h1> -->
         <button class="backButton" onclick="updateTasks()">Update</button>
-        <button class="backButton" onclick="renderTasks()">Render</button>
+        <input class="toDoInput" id="toDoInput"></input>
+        <button class="backButton" onclick="addTasks()">Add task</button>
     </div>
-    <div id="toDoList">
-        <div class="toDoElement">
-            <input type="checkbox" class="toDoCheckbox" onclick="getTasks()">
-            <span class="toDoText">ToDo 1</span>
-        </div>
-        <div class="toDoElement">
-            <input type="checkbox" class="toDoCheckbox">
-            <span class="toDoText">ToDo 2</span>
-        </div>
-        <div class="toDoElement">
-            <input type="checkbox" class="toDoCheckbox">
-            <span class="toDoText">ToDo 3</span>
-        </div>
-    </div>
+    <div id="toDoList"></div>
   </body>
 </html>

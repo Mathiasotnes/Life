@@ -2,6 +2,9 @@ const firebase = require('firebase/app');
 const getFirestore = require('firebase/firestore/lite');
 const collection = require('firebase/firestore/lite');
 const getDocs = require('firebase/firestore/lite');
+const deleteDoc = require('firebase/firestore/lite');
+const addDoc = require('firebase/firestore/lite');
+const setDoc = require('firebase/firestore/lite');
 
 // Import the functions you need from the SDKs you need
 
@@ -23,6 +26,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = getFirestore.getFirestore(firebaseApp);
+renderTasks();
 
 function backToDashboard() {
     window.location.href = "../index.html";
@@ -36,11 +40,25 @@ async function getTasks() {
     return todoList;
 }
 
+async function addTasks() {
+    const input = document.getElementById('toDoInput');
+
+    const todo = {
+        task: input.value,
+        done: false
+    };
+    await setDoc.setDoc(collection.doc(db, 'todo', todo.task), todo).then(() => {
+        console.log("Added task: %s", todo.task);
+        renderTasks();
+    });
+    input.value = "";
+    
+}
+
 async function renderTasks() {
     const todoList = await getTasks();
     const todoContainer = document.getElementById('toDoList');
     
-
     const todoListHTML = document.getElementById('toDoList');
     const todoElements = todoListHTML.getElementsByClassName('toDoElement');
     const todoListArray = Array.from(todoElements);
@@ -53,30 +71,29 @@ async function renderTasks() {
     }
     );
 
+    /* Creating new HTML */
     todoContainer.innerHTML = "";
-
     todoList.forEach((todo) => {
+        const todoElement = document.createElement('div');
+        const todoText = document.createElement('div');
+        const todoCheckbox = document.createElement('input');
+
+        todoElement.classList.add('toDoElement');
+
+        todoCheckbox.type = 'checkbox';
+        todoCheckbox.classList.add('toDoCheckbox');
+
+        todoText.classList.add('toDoText');
+        todoText.innerText = todo.task;
+
         if (todoListArrayCheckedText.includes(todo.task)) {
-            // getFirestore.deleteDoc(todo);
-            console.log(todoList);
+            todoCheckbox.checked = true;
         }
-        else {
-          const todoElement = document.createElement('div');
-          const todoText = document.createElement('div');
-          const todoCheckbox = document.createElement('input');
 
-          todoElement.classList.add('toDoElement');
-
-          todoCheckbox.type = 'checkbox';
-          todoCheckbox.classList.add('toDoCheckbox');
-
-          todoText.classList.add('toDoText');
-          todoText.innerText = todo.task;
-
-          todoElement.appendChild(todoCheckbox);
-          todoElement.appendChild(todoText);
-          todoContainer.appendChild(todoElement);
-      }
+        todoElement.appendChild(todoCheckbox);
+        todoElement.appendChild(todoText);
+        todoContainer.appendChild(todoElement);
+      
     });
 }
 
@@ -94,26 +111,12 @@ async function updateTasks() {
     );
     console.log(todoListArrayCheckedText);
 
-
-    const todos = getFirestore.collection(db, 'todo');
-    todoListArrayCheckedText.forEach((todo) => {
-        console.log('-----------------');
-        console.log(todo);
-        console.log(getFirestore.getDoc(todos, {task: todo}));
-        getFirestore.deleteDoc(todos, {task: todo});
-    }
-    );
-
-
-    const todosSnapshot = await getDocs.getDocs(todos);
-    const todoListDB = todosSnapshot.docs.map(doc => doc.data());
-    console.log(todoListDB);
-    todoListDB.forEach((doc) => {
-        if (todoListArrayCheckedText.includes(doc.task)) {
-            getFirestore.deleteDoc(doc.ref);
-        }
-    }
-    );
-
+    todoListArrayCheckedText.forEach(async (todo) => {
+        await deleteDoc.deleteDoc(collection.doc(db, "todo", todo)).then(() => {
+            console.log("Deleted task: %s", todo);
+            renderTasks();    
+        });
+        
+    });
 }
 

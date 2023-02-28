@@ -85,3 +85,19 @@ body {
     background-color: #2a6371;
     transition: 0.2s;
 }
+
+.toDoInput {
+    font-size: 25px;
+    font-family: 'Merienda';
+    color: rgb(47, 38, 38);
+    justify-content: left;
+    align-items: center;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.toDoInput:focus {
+    outline: none;
+}
