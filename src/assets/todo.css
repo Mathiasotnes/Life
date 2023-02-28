@@ -98,6 +98,6 @@ body {
     border-radius: 3px;
 }
 
-.toDoInput:focus {
-    outline: none;
+.toDoInput.empty {
+    color: #99a1a7;
 }

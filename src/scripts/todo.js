@@ -42,7 +42,7 @@ async function getTasks() {
 
 async function addTasks() {
     const input = document.getElementById('toDoInput');
-
+    
     const todo = {
         task: input.value,
         done: false
@@ -119,4 +119,14 @@ async function updateTasks() {
         
     });
 }
+
+/* Pressing enter triggers addTasks() */
+const input = document.getElementById("toDoInput");
+input.addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+        addTasks();
+    }
+});
+
+
 
