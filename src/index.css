@@ -1,5 +1,12 @@
+/* Color pallette from brighest to darkest:
+#E4F9F5
+#30E3CA
+#11999E
+#40514E
+*/
+
 body {
-  background-color: #fceed1;
+  background-color: #E4F9F5;
   margin: auto;
   max-width: 90%;
   padding-left: 2rem;
@@ -11,11 +18,11 @@ body {
 .header {
   font-size: 50px;
   font-family: 'Merienda';
-  color: rgb(47, 38, 38);
+  color: #40514E;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #40514E;
 }
 
 #dashboard {
@@ -28,13 +35,13 @@ body {
 
 .app {
   font-weight: bolder;
-  background-color: #2d545e;
+  background-color: #11999E;
   color: aliceblue;
   font-size: 40px;
   font-family: 'Merienda';
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
+  border: 2px solid #40514E;
   border-radius: 10px;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -46,7 +53,7 @@ body {
 }
 
 .app:hover {
-  background-color: #2a6371;
+  background-color: #14b0b6;
   transition: 0.2s;
 }
 

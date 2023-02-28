@@ -11,10 +11,18 @@
     <div class="navBar">
         <button class="backButton" onclick="backToDashboard()">Back</button>
         <!-- <h1 class="header">To do</h1> -->
-        <button class="backButton" onclick="updateTasks()">Update</button>
-        <input class="toDoInput" id="toDoInput" placeholder="Add a task"></input>
-        <button class="backButton" onclick="addTasks()">Add task</button>
+        <button class="backButton" onclick="updateTasks()">Complete tasks</button>
+        <div id="inputDiv">
+          <input class="toDoInput" id="toDoInput" placeholder="Add a task..."></input>
+          <button class="backButton" onclick="addTasks()">Add</button>
+        </div>
     </div>
-    <div id="toDoList"></div>
+    <div id="toDoListContainer">
+      <div id="toDoList"></div>
+      <div id="toDoCounter">
+        <h2>Tasks completed:</h2>
+        <h1 id="count"></h1>
+      </div>
+    </div>
   </body>
 </html>

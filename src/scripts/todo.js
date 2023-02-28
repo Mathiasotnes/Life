@@ -26,7 +26,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = getFirestore.getFirestore(firebaseApp);
+const tasks = collection.collection(db, 'todo');
+const counter = collection.collection(db, 'todoCounter');
 renderTasks();
+updateCounter(0);
 
 function backToDashboard() {
     window.location.href = "../index.html";
@@ -98,6 +101,7 @@ async function renderTasks() {
 }
 
 async function updateTasks() {
+    /* Getting all checked tasks */
     const todoList = document.getElementById('toDoList');
     const todoElements = todoList.getElementsByClassName('toDoElement');
     const todoListArray = Array.from(todoElements);
@@ -109,14 +113,40 @@ async function updateTasks() {
         return todo.getElementsByClassName('toDoText')[0].innerText;
     }
     );
-    console.log(todoListArrayCheckedText);
-
+    
+    /* Updating all checked tasks */
+    var completedTasks = 0;
     todoListArrayCheckedText.forEach(async (todo) => {
-        await deleteDoc.deleteDoc(collection.doc(db, "todo", todo)).then(() => {
+        await deleteDoc.deleteDoc(collection.doc(db, "todo", todo)).then(() => {    
             console.log("Deleted task: %s", todo);
-            renderTasks();    
+            completedTasks++;
+            renderTasks();
+            updateCounter(completedTasks);
         });
         
+    });
+    
+}
+
+/* Updating counter */
+async function updateCounter(completedTasks) {
+    getDocs.getDoc(collection.doc(db, 'todoCounter', 'todoCount')).then((doc) => {
+        if (doc.exists()) {
+            completedTasks += doc.data().count;
+            console.log("new count: %s", completedTasks);
+            const count = {
+                count: completedTasks
+            };
+            setDoc.setDoc(collection.doc(db, 'todoCounter', 'todoCount'), count).then(() => {
+                console.log("Updated counter: %s", count.count);
+                document.getElementById('count').innerText = count.count;
+                renderTasks();
+            });
+        } else {
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
     });
 }
 

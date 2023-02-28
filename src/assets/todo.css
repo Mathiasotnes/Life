@@ -1,5 +1,12 @@
+/* Color pallette from brighest to darkest:
+#E4F9F5
+#30E3CA
+#11999E
+#40514E
+*/
+
 body {
-    background-color: #fceed1;
+    background-color: #E4F9F5;
     margin: auto;
     max-width: 90%;
     padding-left: 2rem;
@@ -13,13 +20,44 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #40514E;
+    margin: 3rem;
+}
+
+#toDoListContainer {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-content: space-around;
+    align-items: top;
+}
+
+#toDoCounter {
+    /* display: flex;
+    flex-direction: column; */
+    position: relative;
+    top: 0;
+    font-size: 30px;
+    font-family: 'Merienda';
+    color: #40514E;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#toDoCounter > h1 {
+    margin: 0;
+    text-align: center;
+}
+
+#inputDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
   
 .header {
     font-size: 50px;
     font-family: 'Merienda';
-    color: rgb(47, 38, 38);
+    color: #40514E;
     justify-content: center;
     align-items: center;
 }
@@ -36,7 +74,7 @@ body {
     flex-direction: row;
     font-size: 25px;
     font-family: 'Merienda';
-    color: rgb(47, 38, 38);
+    color: #40514E;
     justify-content: left;
     align-items: center;
     margin: 0.5rem;
@@ -45,9 +83,9 @@ body {
 
 .toDoCheckbox {
     -webkit-appearance: none;
-    background-color: #fceed1;
-    color: #fceed1;
-    border: 1px solid black;
+    background-color: #E4F9F5;
+    color: #E4F9F5;
+    border: 1px solid #40514E;
     justify-content: center;
     align-items: center;
     margin: 0.5rem;
@@ -61,17 +99,18 @@ body {
 }
 
 .toDoCheckbox:checked {
-	background-color: black;
-	border: 1px solid black;
+	background-color: #40514E;
+	border: 1px solid #40514E;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
 	color: #99a1a7;
+    transition: 0.1;
 }
 
 .backButton {
     font-size: 25px;
     font-family: 'Merienda';
-    background-color: #284e57;
-    color: white;
+    background-color: #30E3CA;
+    color: #40514E;
     justify-content: center;
     align-items: center;
     margin: 0.5rem;
@@ -82,22 +121,27 @@ body {
 }
 
 .backButton:hover {
-    background-color: #2a6371;
+    background-color: #14b0b6;
     transition: 0.2s;
 }
 
 .toDoInput {
     font-size: 25px;
     font-family: 'Merienda';
-    color: rgb(47, 38, 38);
+    color: #40514E;
     justify-content: left;
     align-items: center;
     margin: 0.5rem;
     padding: 0.5rem;
-    border: 1px solid black;
+    border: 2px solid #40514E;
     border-radius: 3px;
 }
 
 .toDoInput.empty {
-    color: #99a1a7;
+    color: #11999E;
+}
+
+.toDoInput:focus {
+    outline: none;
+    border: 2px solid #11999E;
 }
